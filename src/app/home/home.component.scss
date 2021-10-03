@@ -84,6 +84,12 @@
   height: 80%;
 }
 
+.message {
+  width: 100%;
+  word-wrap: break-word;
+  line-height: 20px;
+  font-size: 16px;
+}
 
 .message:nth-child(even) {
   background: grey;

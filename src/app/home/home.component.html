@@ -14,13 +14,19 @@
     </div>
 
     <div class="chatBlock">
-      <div #chatArea class="chatArea">
-        <div class="message" *ngFor="let message of messageList">{{message.message}}</div>
-      </div>
-      <div class="chatInputSection">
-        <input type='text' class="chatInput" [(ngModel)]="message" placeholder="Enter a message">
-        <button class="sendChat" (click)="sendMessage()">Send</button>
-      </div>
+      <!--<div *ngIf="!canStartChat">
+          <input type='text' class="chatInput" [(ngModel)]="tagName" placeholder="Enter a Tag Name">
+        <button class="sendChat" (click)="startChat()">Start Chat</button>
+      </div> -->
+      <!--<div *ngIf="canStartChat">-->
+        <div #chatArea class="chatArea">
+          <div class="message" *ngFor="let message of messageList">{{message.message}}</div>
+        </div>
+        <div class="chatInputSection">
+          <input type='text' class="chatInput" [(ngModel)]="message" placeholder="Enter a message">
+          <button class="sendChat" (click)="sendMessage()">Send</button>
+        </div>
+      <!--</div>-->
     </div>
   </div>
 </div>

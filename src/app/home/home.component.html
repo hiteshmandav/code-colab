@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="cameras">
+    <div class="primaryCamera">
+      <video #vid id="vid" autoplay></video>
+    </div>
+
+    <div class="secondaryCamera">
+    </div>
+  </div>
+
+  <div class="text">
+    <div class="codeBlock">
+
+    </div>
+
+    <div class="chatBlock">
+      <div #chatArea class="chatArea">
+        <div class="message" *ngFor="let message of messageList">{{message.message}}</div>
+      </div>
+      <div class="chatInputSection">
+        <input type='text' class="chatInput" [(ngModel)]="message" placeholder="Enter a message">
+        <button class="sendChat" (click)="sendMessage()">Send</button>
+      </div>
+    </div>
+  </div>
+</div>

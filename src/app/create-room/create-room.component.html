@@ -1,0 +1,6 @@
+<div class="create-room-container">
+  <input type="text" placeholder="Enter room name" [(ngModel)]= "roomName"/>
+  <input type="text" placeholder="Enter your Tag Name" [(ngModel)]= "tagName"/>
+  <p class="error" *ngIf="isError">Please enter a valid room name and tag name</p>
+  <button (click)="enterRoom()">Enter Room</button>
+</div>

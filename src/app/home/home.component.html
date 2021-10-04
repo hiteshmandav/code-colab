@@ -1,4 +1,6 @@
-<div class="container">
+<app-create-room *ngIf="!roomCreated" (sendRoomDetails)="reciveRoomDetails($event)"></app-create-room>
+
+<div class="container" *ngIf="roomCreated" >
   <div class="cameras">
     <div class="primaryCamera">
       <video #vid id="vid" autoplay></video>
@@ -14,19 +16,16 @@
     </div>
 
     <div class="chatBlock">
-      <!--<div *ngIf="!canStartChat">
-          <input type='text' class="chatInput" [(ngModel)]="tagName" placeholder="Enter a Tag Name">
-        <button class="sendChat" (click)="startChat()">Start Chat</button>
-      </div> -->
-      <!--<div *ngIf="canStartChat">-->
         <div #chatArea class="chatArea">
-          <div class="message" *ngFor="let message of messageList">{{message.message}}</div>
+          <div class="message" *ngFor="let message of messageList">
+            <p class="userMesasge" *ngIf="!message.isSystem"><strong>{{message.user}}</strong> : {{message.message}}</p>
+            <p class="systemMesasge" *ngIf="message.isSystem"><strong>{{message.user}}</strong> {{message.message}}</p>
+          </div>
         </div>
         <div class="chatInputSection">
           <input type='text' class="chatInput" [(ngModel)]="message" placeholder="Enter a message">
           <button class="sendChat" (click)="sendMessage()">Send</button>
         </div>
-      <!--</div>-->
     </div>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { MessageType } from './types';
 import * as client from 'socket.io-client';
+import { RoomDetails } from '../create-room/create-room.component';
 
 @Component({
   selector: 'app-home',
@@ -15,34 +16,51 @@ export class HomeComponent implements OnInit, AfterViewInit {
   public message = '';
   public messageList: MessageType[];
   private socket: any;
-  public canStartChat: boolean;
+  public roomCreated: boolean;
 
 
   constructor() { }
 
   ngOnInit(): void {
     this.messageList = [];
-    this.socket = client.io(`localhost:3000`);
-    this.socket.on('connect', () => {
-      this.displayMessage(`You are connected with Id : ${this.socket.id}`, 'other', false);
-      console.log(`socket :: $`)
-    });
-
-    this.socket.on('recive-message', (msg) => {
-      console.log(`message recived ${msg}`)
-      this.displayMessage(msg, 'other', false)
-    });
   }
 
   startChat(){
 
   }
 
+  public reciveRoomDetails(roomDetails: RoomDetails) {
+    console.log(roomDetails);
+    this.roomCreated = true;
+    this.socket = client.io(`localhost:3000`,
+                             { query: {
+                                        roomName: roomDetails.roomName,
+                                        tagName: roomDetails.tagName
+                                      }
+                             });
+    this.socket.on('connect', () => {
+      this.displayMessage(`Joined the room`, 'You', true);
+      console.log(`socket :: $`)
+      this.socket.emit('join-room', joinedDetail => {
+        this.displayMessage(`Joined the room`, joinedDetail, true);
+      });
+    });
+
+    this.socket.on('room-joined', joinedDetail => {
+      this.displayMessage(`Joined the room`, joinedDetail, true);
+    });
+
+    this.socket.on('recive-message', (msg) => {
+      console.log(`message recived ${msg.message}, ${msg.tag}`)
+      this.displayMessage(msg.message, msg.tag , false);
+    });
+  }
+
   sendMessage(){
     console.log(`send Message ${this.message}`);
 
     if(this.message !== '') {
-      this.displayMessage(this.message, 'You', true);
+      this.displayMessage(this.message, 'You', false);
       this.socket.emit('send-message', this.message);
       this.message = '';
     } else {
@@ -50,8 +68,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  displayMessage(message, sender, isMine) {
-    this.messageList.push({message: message, user: sender, isMine: isMine});
+  displayMessage(message, sender, isSystem) {
+    this.messageList.push({message: message, user: sender, isSystem: isSystem});
     this.chatArea.nativeElement.scrollTop = this.chatArea.nativeElement.scrollHeight;
   }
 

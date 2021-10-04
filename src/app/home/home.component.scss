@@ -32,6 +32,14 @@
   flex-direction: column;
   justify-content: space-between;
   margin-right: 1vw;
+  overflow: auto;
+}
+
+.particpants{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 240px;
 }
 
 .text {

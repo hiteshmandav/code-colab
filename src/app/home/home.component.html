@@ -6,11 +6,24 @@
       <video #vid id="vid" autoplay></video>
     </div>
 
-    <div class="secondaryCamera">
+    <div class="secondaryCamera" *ngFor="let user of userList">
+      <div class="particpants">
+        {{user.tagName}}
+
+        <ng-container *ngIf="!user.openMessage else privateMessageTemplate">
+          <button (click)="openPrivateMessage(user)">Send private message</button>
+        </ng-container>
+
+        <ng-template #privateMessageTemplate>
+          <input [(ngModel)]="privateMessage" />
+          <button (click)=sendPrivateMessage(user)>Send</button>
+        </ng-template>
+      </div>
     </div>
   </div>
 
   <div class="text">
+    <div class="roomDetails">Room : <strong>{{roomDetails.roomName}}</strong> User ::<strong>{{roomDetails.tagName}}</strong></div>
     <div class="codeBlock">
 
     </div>
@@ -20,6 +33,17 @@
           <div class="message" *ngFor="let message of messageList">
             <p class="userMesasge" *ngIf="!message.isSystem"><strong>{{message.user}}</strong> : {{message.message}}</p>
             <p class="systemMesasge" *ngIf="message.isSystem"><strong>{{message.user}}</strong> {{message.message}}</p>
+
+            <ng-container *ngIf="message.id">
+              <ng-container *ngIf="!message.openMessage else privateMessageReplyTemplate">
+                <button (click)="openPrivateMessage(message)">Reply Privately</button>
+              </ng-container>
+
+              <ng-template #privateMessageReplyTemplate>
+                <input [(ngModel)]="privateMessage" />
+                <button (click)=sendPrivateMessage(message)>Send</button>
+              </ng-template>
+            </ng-container>
           </div>
         </div>
         <div class="chatInputSection">
@@ -29,3 +53,4 @@
     </div>
   </div>
 </div>
+

@@ -5,3 +5,9 @@ export class MessageType {
     public id: string;
     public openMessage: boolean;
 }
+
+
+export class RoomDetails {
+  roomName: string;
+  tagName: string;
+}

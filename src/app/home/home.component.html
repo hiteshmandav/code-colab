@@ -1,34 +1,55 @@
 <app-create-room *ngIf="!roomCreated" (sendRoomDetails)="reciveRoomDetails($event)"></app-create-room>
 
 <div class="container" *ngIf="roomCreated" >
+  <div class="header">
+    <h1 class="roomDetails_header">Room : <strong>{{roomDetails.roomName}}</strong> User : <strong>{{roomDetails.tagName}}</strong></h1>
+  </div>
   <div class="cameras">
     <div class="primaryCamera">
-      <video #vid id="vid" autoplay></video>
+      <video #vid id="selfVid" autoplay></video>
+      <p class="videoNameTag"
+        matTooltip={{roomDetails.tagName}}
+        [matTooltipPosition]="'above'">
+        {{roomDetails.tagName | truncate:10 }}
+      </p>
     </div>
 
     <div class="secondaryCamera" *ngFor="let user of userList">
       <div class="particpants">
-        {{user.tagName}}
-
+        <!-- <video [id]="user.id" class="userVid" autoplay></video> -->
+        <p *ngIf="!user.openMessage"
+            matTooltip="{{user.tagName}}"
+            [matTooltipPosition]="'above'"
+            class="videoNameTag">{{user.tagName | truncate:10}}</p>
         <ng-container *ngIf="!user.openMessage else privateMessageTemplate">
-          <button (click)="openPrivateMessage(user)">Send private message</button>
+          <button mat-button color="accent" (click)="togglePrivateMessage(user)">Send private message</button>
         </ng-container>
 
         <ng-template #privateMessageTemplate>
-          <input [(ngModel)]="privateMessage" />
-          <button (click)=sendPrivateMessage(user)>Send</button>
+          <mat-form-field class="privateChatInput" appearance="outline">
+            <mat-label>Message</mat-label>
+            <input matInput hint="Type a private message" placeholder="send private message" [(ngModel)]="privateMessage">
+            <mat-hint>Private message to {{user.tagName | truncate : 8 }}</mat-hint>
+          </mat-form-field>
+          <button mat-button color="accent" (click)=sendPrivateMessage(user)>
+            <mat-icon aria-label="Send">send</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)=togglePrivateMessage(user)>
+            <mat-icon aria-label="Cancel">cancel</mat-icon>
+          </button>
         </ng-template>
       </div>
     </div>
   </div>
 
   <div class="text">
-    <div class="roomDetails">Room : <strong>{{roomDetails.roomName}}</strong> User ::<strong>{{roomDetails.tagName}}</strong></div>
-    <div class="codeBlock">
 
-    </div>
+    <!-- <div class="codeBlock">
+
+    </div> -->
 
     <div class="chatBlock">
+      <div class="roomDetails">Room Chat</div>
         <div #chatArea class="chatArea">
           <div class="message" *ngFor="let message of messageList">
             <p class="userMesasge" *ngIf="!message.isSystem"><strong>{{message.user}}</strong> : {{message.message}}</p>
@@ -36,19 +57,35 @@
 
             <ng-container *ngIf="message.id">
               <ng-container *ngIf="!message.openMessage else privateMessageReplyTemplate">
-                <button (click)="openPrivateMessage(message)">Reply Privately</button>
+                <button mat-button color="accent" (click)="togglePrivateMessage(message)">Reply Privately</button>
               </ng-container>
 
               <ng-template #privateMessageReplyTemplate>
-                <input [(ngModel)]="privateMessage" />
-                <button (click)=sendPrivateMessage(message)>Send</button>
+                <mat-form-field class="privateReplyChatInput" appearance="outline">
+                  <mat-label>Message</mat-label>
+                  <input matInput hint="Type a private message" placeholder="Send private message" [(ngModel)]="privateMessage">
+                  <mat-hint>Replying to {{message.user | truncate :70 }}</mat-hint>
+                </mat-form-field>
+                <button mat-button color="accent" (click)=sendPrivateMessage(message)>
+                  <mat-icon aria-label="Send">send</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)=togglePrivateMessage(message)>
+                  <mat-icon aria-label="Cancel">cancel</mat-icon>
+                </button>
               </ng-template>
+
             </ng-container>
           </div>
         </div>
         <div class="chatInputSection">
-          <input type='text' class="chatInput" [(ngModel)]="message" placeholder="Enter a message">
-          <button class="sendChat" (click)="sendMessage()">Send</button>
+          <mat-form-field class="chatInput" appearance="fill">
+            <mat-label>Public Message</mat-label>
+            <input  matInput placeholder="This message will be sent to all people in the room" [(ngModel)]="message">
+            <mat-hint>Send message to room</mat-hint>
+          </mat-form-field>
+          <button mat-button color="primary" class="sendChat" (click)="sendMessage()">
+            <mat-icon aria-label="Send">send</mat-icon>
+          </button>
         </div>
     </div>
   </div>

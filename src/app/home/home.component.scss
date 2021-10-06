@@ -1,66 +1,145 @@
 .container {
-  width : 95vw;
-  height : 95vh;
+  width : 98vw;
+  height : 97vh;
+  display: grid;
+  // background-color: black;
+  padding: 0.5rem;
+  border-radius: 5px;
+  grid-template-areas: "header header text"
+                        "cameras cameras text";
+  color: black;
+  justify-content: space-between;
+}
+
+.header{
+  grid-area: header;
+  height: 10vh;
+  background: dimgray;
   display: flex;
+  align-items: center;
+  border-radius: 20px;
+  width: 62vw;
 }
-
-
 .primaryCamera{
-  grid-area: primaryCamera;
-  border : black 5px solid;
-  width: 320px;
-  height: 240px;
-  background-color: grey;
-  // margin: 10px;
+    border: #eae359 1px solid;
+    width: 320px;
+    height: 240px;
+    background-color: #000;
+    border-radius: 20px;
+
+    .videoNameTag {
+      position: relative;
+      top: -40px;
+      /* left: 273px; */
+      float: right;
+      right: 20px;
+      /* margin: 0; */
+      background-color: #eae359;
+      padding: 0px 9px;
+      border-radius: 5px;
+    }
 }
 
-#vid{
+#selfVid{
   width: 320px;
   height: 240px;
+  border-radius: 20px;
+  // position: absolute;
 }
-
+.userVid{
+  width: 320px;
+  height: 240px;
+  border-radius: 20px;
+  position: absolute;
+}
 .secondaryCamera{
-  grid-area: secondaryCamera;
-  border : black 5px solid;
+  border: #eae359 1px solid;
   width: 320px;
   height: 240px;
-  // margin: 10px;
+  border-radius: 20px;
+  /* text-align: center; */
 }
 
 .cameras {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  margin-right: 1vw;
+  grid-area: cameras;
+  grid-template-columns: auto auto auto;
+  display: grid;
+  padding: 1vw;
   overflow: auto;
+  grid-template-rows: auto;
+  grid-gap: 1vh;
+  // border: dimgrey 1px solid;
+  justify-content: center;
+  align-items: center;
+  background: dimgrey;
+  border-radius: 20px;
+  height: 80vh;
+  width: 60vw;
 }
 
 .particpants{
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 240px;
+  // height: 240px;
+  position: relative;
+  top: 195px;
+  float: right;
+  right: 7px;
+  background-color: dimgrey;
+  padding: 0px 10px;
+  border-radius: 5px;
+
+  .videoNameTag{
+    margin: 0;
+    padding: 0px;
+    border-radius: 5px;
+  }
+}
+.privateChatInput {
+  background-color: dimgrey;
+  width: 300px;
+}
+
+.privateReplyChatInput{
+  background-color: dimgrey;
+  width: 100%;
 }
 
 .text {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  grid-area: text;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: space-between;
+  width: 30vw;
+  padding: 10px 0px;
+  border-radius: 20px;
+  // border: green 1px solid;
+  background-color: dimgrey;
+}
+
+.roomDetails{
+  font-size: 12px;
+  text-align: center;
+  &_header{
+    text-align: center;
+    margin: 0 2vw;
+  }
 }
 
 
 .codeBlock{
   grid-area: code;
-  border : green 1px solid;
+  // border : green 1px solid;
   height: 60vh;
   width:70vw;
 }
 
 .chatBlock{
   grid-area: chat;
-  border : green 1px solid;
-  height: 30vh;
-  width:70vw;
+  // border : green 1px solid;
+  // height: 30vh;
+  // width:70vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -68,14 +147,15 @@
 }
 
 .chatArea {
-  width: 98%;
-  height: 80%;
-  border: black 1px solid;
+  width: 100%;
+  height: 80vh;
+  // border: black 1px solid;
   overflow: auto;
 }
 
 .chatInputSection {
-  height: 20%;
+  height: 5vh;
+  margin-top: 2vh;
   width: 100%;
   display: flex;
   align-items: center;
@@ -97,16 +177,24 @@
   word-wrap: break-word;
   line-height: 20px;
   font-size: 16px;
+  border-bottom: black 1px solid;
+  margin: 2px 0;
+
 }
 
 .message:nth-child(even) {
-  background: grey;
-  color: white;
+  // background: grey;
+  // color: white;
 }
 
 .systemMesasge {
   font-style: italic;
   font-size: 12px;
-  background-color: lightgray;
+  // background-color: lightgray;
   color: cadetblue;
+  margin: 2px 0;
+}
+
+.userMesasge{
+  margin: 2px 0;
 }

@@ -1,6 +1,19 @@
 <div class="create-room-container">
-  <input type="text" placeholder="Enter room name" [(ngModel)]= "roomName"/>
-  <input type="text" placeholder="Enter your Tag Name" [(ngModel)]= "tagName"/>
-  <p class="error" *ngIf="isError">Please enter a valid room name and tag name</p>
-  <button (click)="enterRoom()">Enter Room</button>
+
+  <h4 class='heading'>Create or Join a Room</h4>
+
+  <mat-form-field class="chatInput" appearance="fill">
+    <mat-label>Room</mat-label>
+    <input matInput type="text" placeholder="Enter room name" [(ngModel)]= "roomName"/>
+  </mat-form-field>
+
+  <mat-form-field class="chatInput" appearance="fill">
+    <mat-label>Name</mat-label>
+    <input matInput type="text" placeholder="Enter your Tag Name" [(ngModel)]= "tagName"/>
+  </mat-form-field>
+
+  <mat-error class="error" *ngIf="istagNameEmpty">
+    Please enter a valid room name and name
+  </mat-error>
+  <button mat-raised-button color="accent" (click)="enterRoom()">Enter Room</button>
 </div>

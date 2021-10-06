@@ -1,0 +1,19 @@
+.create-room-container {
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  background-color: azure;
+  border-radius: 20px;
+  width: 500px;
+}
+
+.heading {
+  margin-bottom: 50px;
+  color: grey;
+  text-align: center;
+  font-size: 32px;
+}
+
+.error{
+  margin-bottom: 20px;
+}

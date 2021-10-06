@@ -3,14 +3,22 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
+  "engines": {
+    "node": "10.16.3",
+    "npm": "6.9.0"
+  },
+
   "private": true,
   "dependencies": {
+    "@angular/cli": "~9.1.6",
+    "@angular/compiler-cli": "~9.1.7",
     "@angular/animations": "~9.1.7",
     "@angular/cdk": "^9.2.4",
     "@angular/common": "~9.1.7",
@@ -21,10 +29,13 @@
     "@angular/platform-browser": "~9.1.7",
     "@angular/platform-browser-dynamic": "~9.1.7",
     "@angular/router": "~9.1.7",
+    "express": "^4.17.1",
+    "path": "^0.12.7",
     "rxjs": "~6.5.4",
     "socket.io-client": "^4.2.0",
     "tslib": "^1.10.0",
-    "zone.js": "~0.10.2"
+    "zone.js": "~0.10.2",
+    "typescript": "~3.8.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.6",
